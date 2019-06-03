@@ -8,7 +8,7 @@ import {
   emailNotLongEnough,
   invalidEmail
 } from './errorMessages';
-import { registerPasswordValidation } from '../../../yupSchemas';
+import { registerPasswordValidation } from '../../../yupSchemas/user';
 import { createConfirmEmailLink } from './createConfirmEmailLink';
 import { sendEmail } from '../../../utils/sendEmail';
 
@@ -60,7 +60,8 @@ export const resolvers: ResolverMap = {
       if (process.env.NODE_ENV !== 'test') {
         await sendEmail(
           email,
-          await createConfirmEmailLink(url, user.id, redis)
+          await createConfirmEmailLink(url, user.id, redis),
+          'confirm email'
         );
       }
 
