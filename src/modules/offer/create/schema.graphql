@@ -1,0 +1,15 @@
+input CreateOfferInput {
+  title: String!
+  description: String!
+  category: String!
+  latitude: Float!
+  longitude: Float!
+}
+
+type Offer {
+  id: ID!
+}
+
+type Mutation {
+  createOffer(input: CreateOfferInput!): Boolean!
+}

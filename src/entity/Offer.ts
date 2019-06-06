@@ -28,7 +28,7 @@ export class Offer extends BaseEntity {
 
   @Column('text') pictureUrl: string;
 
-  @Column('boolean', { default: false })
+  @Column('boolean', { default: true })
   available: boolean;
 
   @Column('uuid')
