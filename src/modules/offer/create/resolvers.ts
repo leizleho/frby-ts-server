@@ -1,15 +1,11 @@
 import { ResolverMap } from '../../../types/graphql-utils';
 import { Offer } from '../../../entity/Offer';
-
+// import { isAuthenticated } from '../../shared/isAuthenticated';
 export const resolvers: ResolverMap = {
   Mutation: {
     createOffer: async (_, { input }, { session }) => {
-      console.log(session);
+      // isAuthenticated(session);
 
-      if (!session.userId) {
-        // user is not logged in
-        throw new Error('not authenticated');
-      }
       await Offer.create({
         ...input,
         pictureUrl: '',

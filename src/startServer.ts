@@ -12,6 +12,8 @@ import { confirmEmail } from './routes/confirmEmail';
 import { genSchema } from './utils/genSchema';
 import { redisSessionPrefix } from './constants';
 import { createTestConn } from './testUtils/createTestConn';
+import { applyMiddleware } from 'graphql-middleware';
+import { middleware } from './middleware';
 
 const SESSION_SECRET = 'ajslkjalksjdfkl';
 const RedisStore = connectRedis(session as any);
@@ -20,9 +22,11 @@ export const startServer = async () => {
   if (process.env.NODE_ENV === 'test') {
     await redis.flushall();
   }
+  const schema = genSchema() as any;
+  applyMiddleware(schema, middleware);
 
   const server = new GraphQLServer({
-    schema: genSchema() as any,
+    schema,
     context: ({ request }) => ({
       redis,
       url: request.protocol + '://' + request.get('host'),
