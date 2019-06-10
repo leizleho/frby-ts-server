@@ -1,6 +1,9 @@
+scalar Upload
+
 input CreateOfferInput {
   title: String!
   description: String!
+  picture: Upload
   category: String!
   latitude: Float!
   longitude: Float!
