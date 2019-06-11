@@ -5,9 +5,10 @@ import { ResolverMap } from '../../../types/graphql-utils';
 import { Offer } from '../../../entity/Offer';
 // import { isAuthenticated } from '../../shared/isAuthenticated';
 
-const storeUpload = async ({ stream }: any): Promise<any> => {
+const storeUpload = async (stream: any, mimetype: string): Promise<any> => {
   // aseq2
-  const id = shortid.generate();
+  const extension = mimetype.split('/')[1];
+  const id = `${shortid.generate()}.${extension}`;
   const path = `images/${id}`;
 
   return new Promise((resolve, reject) =>
@@ -19,8 +20,8 @@ const storeUpload = async ({ stream }: any): Promise<any> => {
 };
 
 const processUpload = async (upload: any) => {
-  const { stream, filename } = await upload;
-  const { id } = await storeUpload({ stream, filename });
+  const { stream, mimetype } = await upload;
+  const { id } = await storeUpload(stream, mimetype);
   return id;
 };
 
