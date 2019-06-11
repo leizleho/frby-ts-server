@@ -5,8 +5,9 @@ import * as session from 'express-session';
 import * as connectRedis from 'connect-redis';
 import * as RateLimit from 'express-rate-limit';
 import * as RateLimitRedisStore from 'rate-limit-redis';
-
 import { redis } from './redis';
+import * as express from 'express';
+
 import { createTypeormConn } from './utils/createTypeormConn';
 import { confirmEmail } from './routes/confirmEmail';
 import { genSchema } from './utils/genSchema';
@@ -61,6 +62,8 @@ export const startServer = async () => {
       }
     } as any)
   );
+
+  server.express.use('/images', express.static('images'));
 
   const cors = {
     credentials: true,
