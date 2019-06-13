@@ -30,7 +30,7 @@ export const resolvers: ResolverMap = {
     createOffer: async (_, { input: { picture, ...data } }, { session }) => {
       // isAuthenticated(session);
 
-      const pictureUrl = await processUpload(picture);
+      const pictureUrl = picture ? await processUpload(picture) : null;
 
       await Offer.create({
         ...data,

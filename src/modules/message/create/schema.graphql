@@ -1,0 +1,8 @@
+input MessageInput {
+  text: String!
+  offerId: String!
+}
+
+type Mutation {
+  createMessage(message: MessageInput!): Boolean!
+}
