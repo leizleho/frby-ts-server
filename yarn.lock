@@ -2305,6 +2305,15 @@ graphql-playground-middleware-lambda@1.7.12:
   dependencies:
     graphql-playground-html "1.6.12"
 
+graphql-redis-subscriptions@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/graphql-redis-subscriptions/-/graphql-redis-subscriptions-2.1.0.tgz#cd7804d9524c84800deaf81632539f3f2693ebf5"
+  integrity sha512-edur8YlwIsjk9K1Ao8vgEQkNKvt11FCTlOIFfxMKYIHOVv4zMvDsv7fs282LxMJBJGDCDDcdc1c5iKj0BjXO+Q==
+  dependencies:
+    iterall "^1.2.2"
+  optionalDependencies:
+    ioredis "^4.6.3"
+
 graphql-shield@^5.3.6:
   version "5.3.6"
   resolved "https://registry.yarnpkg.com/graphql-shield/-/graphql-shield-5.3.6.tgz#20061b02f77056c0870a623c530ef28a1bf4fff4"
@@ -2574,6 +2583,21 @@ invert-kv@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/invert-kv/-/invert-kv-2.0.0.tgz#7393f5afa59ec9ff5f67a27620d11c226e3eec02"
   integrity sha512-wPVv/y/QQ/Uiirj/vh3oP+1Ww+AWehmi1g5fFWGPF6IpCBCDVrhgHRMvrLfdYcwDh3QJbGXDW4JAuzxElLSqKA==
+
+ioredis@^4.6.3:
+  version "4.10.0"
+  resolved "https://registry.yarnpkg.com/ioredis/-/ioredis-4.10.0.tgz#a212127473d1618af3714bd6c09fb7dcab594250"
+  integrity sha512-bAdt/sKdOvUyKhjLJ8HKFmO6ZQ+OHHmfFgWn9X/ecsp1lJNnOtmh/Xl2+AdKwUdSkl/Rrw1CKOkR8+Kv8tRinQ==
+  dependencies:
+    cluster-key-slot "^1.0.6"
+    debug "^3.1.0"
+    denque "^1.1.0"
+    lodash.defaults "^4.2.0"
+    lodash.flatten "^4.4.0"
+    redis-commands "1.5.0"
+    redis-errors "^1.2.0"
+    redis-parser "^3.0.0"
+    standard-as-callback "^2.0.1"
 
 ioredis@^4.9.5:
   version "4.9.5"
@@ -4430,7 +4454,7 @@ redis-commands@1.4.0:
   resolved "https://registry.yarnpkg.com/redis-commands/-/redis-commands-1.4.0.tgz#52f9cf99153efcce56a8f86af986bd04e988602f"
   integrity sha512-cu8EF+MtkwI4DLIT0x9P8qNTLFhQD4jLfxLR0cCNkeGzs87FN6879JOJwNQR/1zD7aSYNbU0hgsV9zGY71Itvw==
 
-redis-commands@^1.2.0:
+redis-commands@1.5.0, redis-commands@^1.2.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/redis-commands/-/redis-commands-1.5.0.tgz#80d2e20698fe688f227127ff9e5164a7dd17e785"
   integrity sha512-6KxamqpZ468MeQC3bkWmCB1fp56XL64D4Kf0zJSwDZbVLLm7KFkoIcHrgRvQ+sk8dnhySs7+yBg94yIkAK7aJg==
