@@ -26,7 +26,8 @@ export class Offer extends BaseEntity {
 
   @Column('double precision') longitude: number;
 
-  @Column('text') pictureUrl: string;
+  @Column('text', { nullable: true })
+  pictureUrl: string;
 
   @Column('boolean', { default: true })
   available: boolean;
