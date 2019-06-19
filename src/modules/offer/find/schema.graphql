@@ -5,7 +5,7 @@ type Offer {
   category: String!
   latitude: Float!
   longitude: Float!
-  pictureUrl: String!
+  pictureUrl: String
   owner: User!
 }
 
