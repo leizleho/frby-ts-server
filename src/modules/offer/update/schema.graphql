@@ -1,17 +1,13 @@
-input UpdateListingInput {
-  name: String
+input UpdateOfferInput {
+  title: String
   picture: Upload
   pictureUrl: String
   category: String
   description: String
-  price: Int
-  beds: Int
-  guests: Int
   latitude: Float
   longitude: Float
-  amenities: [String!]
 }
 
 type Mutation {
-  updateListing(listingId: String!, input: UpdateListingInput!): Boolean!
+  updateOffer(offerId: String!, input: UpdateOfferInput!): Boolean!
 }
