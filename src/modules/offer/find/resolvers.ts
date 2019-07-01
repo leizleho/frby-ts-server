@@ -1,5 +1,5 @@
 import { ResolverMap } from '../../../types/graphql-utils';
-import { Offer } from '../../../entity/Offer';
+import { offerCacheKey } from '../../../constants';
 
 export const resolvers: ResolverMap = {
   Offer: {
@@ -8,8 +8,9 @@ export const resolvers: ResolverMap = {
     owner: ({ userId }, _, { userLoader }) => userLoader.load(userId)
   },
   Query: {
-    findOffers: async () => {
-      return Offer.find();
+    findOffers: async (_, __, { redis }) => {
+      const offers = (await redis.lrange(offerCacheKey, 0, -1)) || [];
+      return offers.map((offer: string) => JSON.parse(offer));
     }
   }
 };

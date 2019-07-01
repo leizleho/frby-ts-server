@@ -12,11 +12,12 @@ import { RedisPubSub } from 'graphql-redis-subscriptions';
 import { createTypeormConn } from './utils/createTypeormConn';
 import { confirmEmail } from './routes/confirmEmail';
 import { genSchema } from './utils/genSchema';
-import { redisSessionPrefix } from './constants';
+import { redisSessionPrefix, offerCacheKey } from './constants';
 import { createTestConn } from './testUtils/createTestConn';
 import { applyMiddleware } from 'graphql-middleware';
 import { middleware } from './middleware';
 import { userLoader } from './loaders/UserLoader';
+import { Offer } from './entity/Offer';
 
 const SESSION_SECRET = 'ajslkjalksjdfkl';
 const RedisStore = connectRedis(session as any);
@@ -28,7 +29,13 @@ export const startServer = async () => {
   const schema = genSchema() as any;
   applyMiddleware(schema, middleware);
 
-  const pubsub = new RedisPubSub();
+  const pubsub = new RedisPubSub(
+    process.env.NODE_ENV === 'production'
+      ? {
+          connection: process.env.REDIS_URL as any
+        }
+      : {}
+  );
 
   const server = new GraphQLServer({
     schema,
@@ -88,9 +95,19 @@ export const startServer = async () => {
     const conn = await createTypeormConn();
     await conn.runMigrations();
   }
+
+  // clear cache
+  await redis.del(offerCacheKey);
+  // fill cache
+  const offers = await Offer.find();
+  const offerStrings = offers.map(offer => JSON.stringify(offer));
+  await redis.lpush(offerCacheKey, ...offerStrings);
+  // console.log(await redis.lrange(offerCacheKey, 0, -1));
+
+  const port = process.env.PORT || 4000;
   const app = await server.start({
     cors,
-    port: process.env.NODE_ENV === 'test' ? 0 : 4000
+    port: process.env.NODE_ENV === 'test' ? 0 : port
   });
   console.log('Server is running on localhost:4000');
 
