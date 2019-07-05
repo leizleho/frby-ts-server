@@ -1,0 +1,9 @@
+input SearchOffersInput {
+  title: Int
+  description: Int
+  category: String
+}
+
+type Query {
+  searchOffers(input: SearchOffersInput, offset: Int!, limit: Int!): [Offer!]!
+}
