@@ -12,11 +12,13 @@ export const resolvers: ResolverMap = {
         .getRepository(Offer)
         .createQueryBuilder('l');
       if (title) {
-        offerQB = offerQB.andWhere('l.title = :title', { title });
+        offerQB = offerQB.andWhere('l.title ilike :title', {
+          title: `%${title}%`
+        });
       }
       if (description) {
-        offerQB = offerQB.andWhere('l.description = :description', {
-          description
+        offerQB = offerQB.andWhere('l.description ilike :description', {
+          description: `%${description}%`
         });
       }
       if (category) {
